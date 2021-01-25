@@ -6,14 +6,16 @@ namespace Anketa
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(EnterUser());
+            EnterUser();
+            EnterPetNames(EnterUser().Pets);
         }
 
         // Ввод данных пользователя
-        static (string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames) EnterUser()
+        static (string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] FavColors) EnterUser()
         {
-            (string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames) User;
+            (string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] FavColors) User;
 
+            // Имя
             do
             {
                 Console.Write("Введите имя: ");
@@ -21,6 +23,7 @@ namespace Anketa
 
             } while (CheckStr(User.Name) == false);
 
+            // Фамилия
             do
             {
                 Console.Write("Введите фамилию: ");
@@ -28,6 +31,7 @@ namespace Anketa
 
             } while (CheckStr(User.LastName) == false);
 
+            // Возраст
             string strAge;
             int numAge;
             do
@@ -36,9 +40,9 @@ namespace Anketa
                 strAge = Console.ReadLine().Replace(" ", "");
 
             } while (CheckNum(strAge, out numAge) == false);
-
             User.Age = numAge;
 
+            // Наличие питомцев
             do
             {
                 Console.Write("Есть ли у Вас питомцы? (да/нет) ");
@@ -46,6 +50,7 @@ namespace Anketa
 
             } while (CheckYesNo(User.HaveAPet) == false);
 
+            // Если есть, то сколько и как зовут
             if (User.HaveAPet == "да" || User.HaveAPet == "yes")
             {
                 string strPet;
@@ -58,13 +63,25 @@ namespace Anketa
                 } while (CheckNum(strPet, out numPet) == false);
 
                 User.Pets = numPet;
+                User.PetNames = EnterPetNames(User.Pets);
             }
             else
             {
                 User.Pets = 0;
+                User.PetNames = null;
             }
 
-            User.PetNames = EnterPetNames(User.Pets);
+            // Сколько любимых цветов и каких
+            string strColor;
+            int numColor;
+            do
+            {
+                Console.Write("Сколько у Вас любимых цветов? ");
+                strColor = Console.ReadLine().Replace(" ", "");
+
+            } while (CheckNum(strColor, out numColor) == false);
+            User.Colors = numColor;
+            User.FavColors = EnterFavColors(User.Colors);
 
             return User;
         }
@@ -80,6 +97,25 @@ namespace Anketa
                 do
                 {
                     Console.Write("Питомец {0}: ", i + 1);
+                    array[i] = Console.ReadLine().Replace(" ", "");
+
+                } while (CheckStr(array[i]) == false);
+            }
+
+            return array;
+        }
+
+        // Ввод любимых цветов
+        static string[] EnterFavColors(int num)
+        {
+            Console.WriteLine("Введите свои любимые цвета");
+            string[] array = new string[num];
+
+            for (int i = 0; i < num; i++)
+            {
+                do
+                {
+                    Console.Write("Цвет {0}: ", i + 1);
                     array[i] = Console.ReadLine().Replace(" ", "");
 
                 } while (CheckStr(array[i]) == false);
@@ -145,5 +181,16 @@ namespace Anketa
             return true;
         }
 
+        // Вывод данных на экран
+        static void OutputOnDisplay((string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] FavColors) User)
+        {
+            Console.WriteLine("Ваше имя: {0}", User.Name);
+            Console.WriteLine("Ваша фамилия: {0}", User.LastName);
+            Console.WriteLine("Ваш возраст: {0}", User.Age);
+            Console.WriteLine("Наличие питомцев: {0}", User.HaveAPet);
+            Console.WriteLine("Количество питомцев: {0}", User.Pets);
+            Console.WriteLine("Клички питомцев: {0}", User.PetNames);
+
+        }
     }
 }
