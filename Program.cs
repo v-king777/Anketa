@@ -14,17 +14,25 @@ namespace Anketa
         {
             (string Name, string LastName, byte Age) User;
 
-            Console.Write("Введите имя: ");
-            User.Name = Console.ReadLine().Replace(" ", "");
+            do
+            {
+                Console.Write("Введите имя: ");
+                User.Name = Console.ReadLine().Replace(" ", "");
 
-            Console.Write("Введите фамилию: ");
-            User.LastName = Console.ReadLine().Replace(" ", "");
+            } while (CheckStr(User.Name) == false);
+
+            do
+            {
+                Console.Write("Введите фамилию: ");
+                User.LastName = Console.ReadLine().Replace(" ", "");
+
+            } while (CheckStr(User.LastName) == false);
 
             string strAge;
             byte numAge;
             do
             {
-                Console.Write("Введите возраст цифрами: ");
+                Console.Write("Введите возраст: ");
                 strAge = Console.ReadLine().Replace(" ", "");
 
             } while (CheckNum(strAge, out numAge) == false);
@@ -37,6 +45,13 @@ namespace Anketa
         // Проверка и преобразование строки в число
         static bool CheckNum(string str, out byte num)
         {
+            if (String.IsNullOrEmpty(str))
+            {
+                num = 0;
+                Console.WriteLine("Напишите хоть что-нибудь!");
+                return false;
+            }
+
             if (byte.TryParse(str, out byte corrNum) == false || corrNum == 0)
             {
                 num = 0;
@@ -45,6 +60,30 @@ namespace Anketa
             }
 
             num = corrNum;
+            return true;
+        }
+
+        // Проверка строки на вводимые символы
+        static bool CheckStr(string str)
+        {
+            if (String.IsNullOrEmpty(str))
+            {
+                Console.WriteLine("Напишите хоть что-нибудь!");
+                return false;
+            }
+
+            string lowStr = str.ToLower();
+
+            for (int i = 0; i < lowStr.Length; i++)
+            {
+                if ((lowStr[i] < 97 || lowStr[i] > 122) &&
+                    (lowStr[i] < 1072 || lowStr[i] > 1103))
+                {
+                    Console.WriteLine("Неверный ввод данных! Нужны буквы!");
+                    return false;
+                }
+            }
+
             return true;
         }
     }
