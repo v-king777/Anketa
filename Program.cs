@@ -10,9 +10,9 @@ namespace Anketa
         }
 
         // Ввод данных пользователя
-        static (string Name, string LastName, int Age, string HaveAPet, int Pets) EnterUser()
+        static (string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames) EnterUser()
         {
-            (string Name, string LastName, int Age, string HaveAPet, int Pets) User;
+            (string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames) User;
 
             do
             {
@@ -41,7 +41,7 @@ namespace Anketa
 
             do
             {
-                Console.Write("Есть ли у Вас питомец? (да/нет) ");
+                Console.Write("Есть ли у Вас питомцы? (да/нет) ");
                 User.HaveAPet = Console.ReadLine().Replace(" ", "").ToLower();
 
             } while (CheckYesNo(User.HaveAPet) == false);
@@ -64,7 +64,28 @@ namespace Anketa
                 User.Pets = 0;
             }
 
+            User.PetNames = EnterPetNames(User.Pets);
+
             return User;
+        }
+
+        // Ввод кличек питомцев
+        static string[] EnterPetNames(int num)
+        {
+            Console.WriteLine("Введите клички своих питомцев");
+            string[] array = new string[num];
+
+            for (int i = 0; i < num; i++)
+            {
+                do
+                {
+                    Console.Write("Питомец {0}: ", i + 1);
+                    array[i] = Console.ReadLine().Replace(" ", "");
+
+                } while (CheckStr(array[i]) == false);
+            }
+
+            return array;
         }
 
         // Проверка и преобразование строки в число
@@ -123,5 +144,6 @@ namespace Anketa
 
             return true;
         }
+
     }
 }
