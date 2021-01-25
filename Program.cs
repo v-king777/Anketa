@@ -10,9 +10,9 @@ namespace Anketa
         }
 
         // Ввод данных пользователя
-        static (string Name, string LastName, int Age) EnterUser()
+        static (string Name, string LastName, int Age, string HaveAPet, int Pets) EnterUser()
         {
-            (string Name, string LastName, int Age) User;
+            (string Name, string LastName, int Age, string HaveAPet, int Pets) User;
 
             do
             {
@@ -38,6 +38,31 @@ namespace Anketa
             } while (CheckNum(strAge, out numAge) == false);
 
             User.Age = numAge;
+
+            do
+            {
+                Console.Write("Есть ли у Вас питомец? (да/нет) ");
+                User.HaveAPet = Console.ReadLine().Replace(" ", "").ToLower();
+
+            } while (CheckYesNo(User.HaveAPet) == false);
+
+            if (User.HaveAPet == "да" || User.HaveAPet == "yes")
+            {
+                string strPet;
+                int numPet;
+                do
+                {
+                    Console.Write("Сколько у Вас питомцев? ");
+                    strPet = Console.ReadLine().Replace(" ", "");
+
+                } while (CheckNum(strPet, out numPet) == false);
+
+                User.Pets = numPet;
+            }
+            else
+            {
+                User.Pets = 0;
+            }
 
             return User;
         }
@@ -82,6 +107,18 @@ namespace Anketa
                     Console.WriteLine("Неверный ввод данных! Нужны буквы!");
                     return false;
                 }
+            }
+
+            return true;
+        }
+
+        // Проверка ввода да/нет
+        static bool CheckYesNo(string str)
+        {
+            if (str != "да" && str != "нет" && str != "yes" && str != "no")
+            {
+                Console.WriteLine("Неверный ввод данных!");
+                return false;
             }
 
             return true;
