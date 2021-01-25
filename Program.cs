@@ -10,9 +10,9 @@ namespace Anketa
         }
 
         // Ввод данных пользователя
-        static (string Name, string LastName, byte Age) EnterUser()
+        static (string Name, string LastName, int Age) EnterUser()
         {
-            (string Name, string LastName, byte Age) User;
+            (string Name, string LastName, int Age) User;
 
             do
             {
@@ -29,7 +29,7 @@ namespace Anketa
             } while (CheckStr(User.LastName) == false);
 
             string strAge;
-            byte numAge;
+            int numAge;
             do
             {
                 Console.Write("Введите возраст: ");
@@ -43,7 +43,7 @@ namespace Anketa
         }
 
         // Проверка и преобразование строки в число
-        static bool CheckNum(string str, out byte num)
+        static bool CheckNum(string str, out int num)
         {
             if (String.IsNullOrEmpty(str))
             {
@@ -52,7 +52,7 @@ namespace Anketa
                 return false;
             }
 
-            if (byte.TryParse(str, out byte corrNum) == false || corrNum == 0)
+            if (int.TryParse(str, out int corrNum) == false || corrNum < 1)
             {
                 num = 0;
                 Console.WriteLine("Неверный ввод данных!");
