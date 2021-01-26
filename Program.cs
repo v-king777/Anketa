@@ -8,6 +8,8 @@ namespace Anketa
         {
             var form = EnterUser();
             OutputOnDisplay(form);
+
+            Console.ReadKey(true);
         }
 
         // Ввод данных пользователя
