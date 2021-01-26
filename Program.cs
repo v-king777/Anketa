@@ -7,33 +7,7 @@ namespace Anketa
         static void Main(string[] args)
         {
             var form = EnterUser();
-
-            Console.WriteLine("Ваше имя: {0}", form.Name);
-            Console.WriteLine("Ваша фамилия: {0}", form.LastName);
-            Console.WriteLine("Ваш возраст: {0}", form.Age);
-            Console.WriteLine("Наличие питомцев: {0}", form.HaveAPet);
-
-            if (form.HaveAPet == "да" || form.HaveAPet == "yes")
-            {
-                Console.WriteLine("Количество питомцев: {0}", form.Pets);
-            }
-
-            int count = 1;
-            if (form.Pets > 0)
-            {
-                foreach (string str in form.PetNames)
-                {
-                    Console.WriteLine("Кличка питомца {0}: {1}", count++, str);
-                }
-            }
-
-            Console.WriteLine("Количество любимых цветов: {0}", form.Colors);
-
-            count = 1;
-            foreach (string str in form.FavColors)
-            {
-                Console.WriteLine("Любимый цвет {0}: {1}", count++, str);
-            }
+            OutputOnDisplay(form);
         }
 
         // Ввод данных пользователя
@@ -181,11 +155,11 @@ namespace Anketa
             }
 
             string lowStr = str.ToLower();
-
+            
             for (int i = 0; i < lowStr.Length; i++)
             {
                 if ((lowStr[i] < 97 || lowStr[i] > 122) &&
-                    (lowStr[i] < 1072 || lowStr[i] > 1103))
+                    (lowStr[i] < 1072 || lowStr[i] > 1105))
                 {
                     Console.WriteLine("Неверный ввод данных! Нужны буквы!");
                     return false;
@@ -208,6 +182,34 @@ namespace Anketa
         }
 
         // Вывод данных на экран
-        
+        static void OutputOnDisplay((string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] FavColors) form)
+        {
+            Console.WriteLine("Ваше имя: {0}", form.Name);
+            Console.WriteLine("Ваша фамилия: {0}", form.LastName);
+            Console.WriteLine("Ваш возраст: {0}", form.Age);
+            Console.WriteLine("Наличие питомцев: {0}", form.HaveAPet);
+
+            if (form.HaveAPet == "да" || form.HaveAPet == "yes")
+            {
+                Console.WriteLine("Количество питомцев: {0}", form.Pets);
+            }
+
+            int count = 1;
+            if (form.Pets > 0)
+            {
+                foreach (string str in form.PetNames)
+                {
+                    Console.WriteLine("Кличка питомца {0}: {1}", count++, str);
+                }
+            }
+
+            Console.WriteLine("Количество любимых цветов: {0}", form.Colors);
+
+            count = 1;
+            foreach (string str in form.FavColors)
+            {
+                Console.WriteLine("Любимый цвет {0}: {1}", count++, str);
+            }
+        }
     }
 }
