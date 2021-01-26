@@ -6,8 +6,34 @@ namespace Anketa
     {
         static void Main(string[] args)
         {
-            EnterUser();
-            EnterPetNames(EnterUser().Pets);
+            var form = EnterUser();
+
+            Console.WriteLine("Ваше имя: {0}", form.Name);
+            Console.WriteLine("Ваша фамилия: {0}", form.LastName);
+            Console.WriteLine("Ваш возраст: {0}", form.Age);
+            Console.WriteLine("Наличие питомцев: {0}", form.HaveAPet);
+
+            if (form.HaveAPet == "да" || form.HaveAPet == "yes")
+            {
+                Console.WriteLine("Количество питомцев: {0}", form.Pets);
+            }
+
+            int count = 1;
+            if (form.Pets > 0)
+            {
+                foreach (string str in form.PetNames)
+                {
+                    Console.WriteLine("Кличка питомца {0}: {1}", count++, str);
+                }
+            }
+
+            Console.WriteLine("Количество любимых цветов: {0}", form.Colors);
+
+            count = 1;
+            foreach (string str in form.FavColors)
+            {
+                Console.WriteLine("Любимый цвет {0}: {1}", count++, str);
+            }
         }
 
         // Ввод данных пользователя
@@ -182,15 +208,6 @@ namespace Anketa
         }
 
         // Вывод данных на экран
-        static void OutputOnDisplay((string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] FavColors) User)
-        {
-            Console.WriteLine("Ваше имя: {0}", User.Name);
-            Console.WriteLine("Ваша фамилия: {0}", User.LastName);
-            Console.WriteLine("Ваш возраст: {0}", User.Age);
-            Console.WriteLine("Наличие питомцев: {0}", User.HaveAPet);
-            Console.WriteLine("Количество питомцев: {0}", User.Pets);
-            Console.WriteLine("Клички питомцев: {0}", User.PetNames);
-
-        }
+        
     }
 }
