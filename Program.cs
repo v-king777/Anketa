@@ -12,9 +12,9 @@ namespace Anketa
         }
 
         // Ввод данных пользователя
-        static (string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] FavColors) EnterUser()
+        static (string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] ColorNames) EnterUser()
         {
-            (string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] FavColors) User;
+            (string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] ColorNames) User;
 
             // Имя
             do
@@ -82,7 +82,7 @@ namespace Anketa
 
             } while (CheckNum(strColor, out numColor) == false);
             User.Colors = numColor;
-            User.FavColors = EnterFavColors(User.Colors);
+            User.ColorNames = EnterFavColors(User.Colors);
 
             return User;
         }
@@ -183,7 +183,7 @@ namespace Anketa
         }
 
         // Вывод данных на экран
-        static void OutputOnDisplay((string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] FavColors) form)
+        static void OutputOnDisplay((string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] ColorNames) form)
         {
             Console.WriteLine("Ваше имя: {0}", form.Name);
             Console.WriteLine("Ваша фамилия: {0}", form.LastName);
@@ -207,7 +207,7 @@ namespace Anketa
             Console.WriteLine("Количество любимых цветов: {0}", form.Colors);
 
             count = 1;
-            foreach (string str in form.FavColors)
+            foreach (string str in form.ColorNames)
             {
                 Console.WriteLine("Любимый цвет {0}: {1}", count++, str);
             }
