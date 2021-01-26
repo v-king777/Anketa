@@ -35,16 +35,19 @@ namespace Anketa
             // Возраст
             string strAge;
             int numAge;
+
             do
             {
                 Console.Write("Введите возраст: ");
                 strAge = Console.ReadLine().Replace(" ", "");
 
             } while (CheckNum(strAge, out numAge) == false);
+
             User.Age = numAge;
 
             // Наличие питомцев
             string strHaveAPet;
+
             do
             {
                 Console.Write("Есть ли у Вас питомцы? (да/нет) ");
@@ -66,6 +69,7 @@ namespace Anketa
             {
                 string strPet;
                 int numPet;
+
                 do
                 {
                     Console.Write("Сколько у Вас питомцев? ");
@@ -85,12 +89,14 @@ namespace Anketa
             // Сколько любимых цветов и каких
             string strColor;
             int numColor;
+
             do
             {
                 Console.Write("Сколько у Вас любимых цветов? ");
                 strColor = Console.ReadLine().Replace(" ", "");
 
             } while (CheckNum(strColor, out numColor) == false);
+
             User.Colors = numColor;
             User.ColorNames = EnterFavColors(User.Colors);
 
@@ -205,6 +211,7 @@ namespace Anketa
             }
 
             int count = 1;
+
             if (form.Pets > 0)
             {
                 foreach (string str in form.PetNames)
@@ -216,6 +223,7 @@ namespace Anketa
             Console.WriteLine("Количество любимых цветов: {0}", form.Colors);
 
             count = 1;
+
             foreach (string str in form.ColorNames)
             {
                 Console.WriteLine("Любимый цвет {0}: {1}", count++, str);
