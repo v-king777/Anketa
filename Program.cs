@@ -12,9 +12,9 @@ namespace Anketa
         }
 
         // Ввод данных пользователя
-        static (string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] ColorNames) EnterUser()
+        static (string Name, string LastName, int Age, bool HaveAPet, int Pets, string[] PetNames, int Colors, string[] ColorNames) EnterUser()
         {
-            (string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] ColorNames) User;
+            (string Name, string LastName, int Age, bool HaveAPet, int Pets, string[] PetNames, int Colors, string[] ColorNames) User;
 
             // Имя
             do
@@ -44,15 +44,25 @@ namespace Anketa
             User.Age = numAge;
 
             // Наличие питомцев
+            string strHaveAPet;
             do
             {
                 Console.Write("Есть ли у Вас питомцы? (да/нет) ");
-                User.HaveAPet = Console.ReadLine().Replace(" ", "").ToLower();
+                strHaveAPet = Console.ReadLine().Replace(" ", "").ToLower();
 
-            } while (CheckYesNo(User.HaveAPet) == false);
+            } while (CheckYesNo(strHaveAPet) == false);
+
+            if (strHaveAPet == "да" || strHaveAPet == "yes")
+            {
+                User.HaveAPet = true;
+            }
+            else
+            {
+                User.HaveAPet = false;
+            }
 
             // Если есть, то сколько и как зовут
-            if (User.HaveAPet == "да" || User.HaveAPet == "yes")
+            if (User.HaveAPet == true)
             {
                 string strPet;
                 int numPet;
@@ -156,11 +166,10 @@ namespace Anketa
             }
 
             string lowStr = str.ToLower();
-            
+
             for (int i = 0; i < lowStr.Length; i++)
             {
-                if ((lowStr[i] < 97 || lowStr[i] > 122) &&
-                    (lowStr[i] < 1072 || lowStr[i] > 1105))
+                if ((lowStr[i] < 97 || lowStr[i] > 122) && (lowStr[i] < 1072 || lowStr[i] > 1105))
                 {
                     Console.WriteLine("Неверный ввод данных! Нужны буквы!");
                     return false;
@@ -183,14 +192,14 @@ namespace Anketa
         }
 
         // Вывод данных на экран
-        static void OutputOnDisplay((string Name, string LastName, int Age, string HaveAPet, int Pets, string[] PetNames, int Colors, string[] ColorNames) form)
+        static void OutputOnDisplay((string Name, string LastName, int Age, bool HaveAPet, int Pets, string[] PetNames, int Colors, string[] ColorNames) form)
         {
             Console.WriteLine("Ваше имя: {0}", form.Name);
             Console.WriteLine("Ваша фамилия: {0}", form.LastName);
             Console.WriteLine("Ваш возраст: {0}", form.Age);
             Console.WriteLine("Наличие питомцев: {0}", form.HaveAPet);
 
-            if (form.HaveAPet == "да" || form.HaveAPet == "yes")
+            if (form.HaveAPet == true)
             {
                 Console.WriteLine("Количество питомцев: {0}", form.Pets);
             }
